@@ -2,7 +2,7 @@
   "name": "dmsSACTCO",
   "version": "0.0.1",
   "scripts": {
-    "start": "ui5 serve --config=uimodule/ui5.yaml  --open index.html",
+    "start": "ui5 serve --config=uimodule/ui5.yaml  --open index.html --port $PORT",
     "build:ui": "run-s  build:uimodule",
     "test": "run-s lint karma",
     "karma-ci": "karma start karma-ci.conf.js",
