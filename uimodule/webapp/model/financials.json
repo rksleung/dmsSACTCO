@@ -1,0 +1,18 @@
+{
+	"financials": [
+		{
+			"category": "On-Prem BI",
+			"Acquisition": 995227,
+			"Implementation": 201014,
+			"Production": 206737,
+			"EndUser": 65483
+		},
+		{
+			"category": "SAC",
+			"Acquisition": 756000,
+			"Implementation": 130000,
+			"Production": 145000,
+			"EndUser": 65000
+		}
+	]
+}

@@ -1,11 +1,85 @@
  <mvc:View controllerName="com.dataworksbi.dmsSACTCO.controller.MainView"
   displayBlock="true"
   xmlns="sap.m"
-  xmlns:mvc="sap.ui.core.mvc">
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:viz="sap.viz.ui5.controls"
+  xmlns:viz.data="sap.viz.ui5.data"
+  xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
   <App id="idAppControl" >
     <pages>
       <Page title="{i18n>title}">
-        <content></content>
+        <content>
+          <Panel headerText="{i18n>TextTCOComparison}" class="sapUiDemoFlexBoxSizeAdjustments">
+            <HBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
+              <VBox class="sapUiSmallMarginEnd">
+                <Label text="{i18n>InputNumOfLicense}" wrapping="true"/>
+              </VBox>
+              <VBox>
+                <StepInput
+                  value="{value}"
+                  displayValuePrecision="{displayValuePrecision}"
+                  min="{min}"
+                  max="{max}"
+                  width="{width}"
+                  step="{step}"
+                  largerStep="{largerStep}"
+                  stepMode="{stepMode}"
+                  valueState="{valueState}"
+                  enabled="{enabled}"
+                  editable="{editable}"
+                  description="{description}"
+                  fieldWidth="{fieldWidth}"
+                  textAlign="{textAlign}"
+                  validationMode="{validationMode}"
+                  change="onChange"/>
+              </VBox>
+            </HBox>          
+            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" width="100%" vizType='stacked_column'
+              vizProperties="{general:{ groupData : false}, title:{ text: 'Revenue Outlook'}, plotArea: { window: { start: 'firstDataPoint', end: 'lastDataPoint'}, dataLabel: { formatString: 'CustomFloatFormat_F2', visible: true } } }">
+              <viz:dataset>
+                <viz.data:FlattenedDataset data="{TCOData>/financials}">
+                  <viz.data:dimensions>
+                    <viz.data:DimensionDefinition name="category" value="{category}"/>
+                  </viz.data:dimensions>
+                  <viz.data:measures>
+                    <viz.data:MeasureDefinition name="Acquisition" value="{Acquisition}"/>
+                    <viz.data:MeasureDefinition name="Implementation" value="{Implementation}"/>
+                    <viz.data:MeasureDefinition name="Production" value="{Production}"/>
+                    <viz.data:MeasureDefinition name="EndUser" value="{EndUser}"/>
+                  </viz.data:measures>
+                </viz.data:FlattenedDataset>
+              </viz:dataset>
+              <viz:feeds>
+                <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Acquisition,Implementation,Production,EndUser"/>
+                <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="category"/>
+              </viz:feeds>
+            </viz:VizFrame>
+          </Panel>                  
+          <Panel expandable="true" headerText="Assumptions" width="auto" class="sapUiResponsiveMargin">
+            <content>
+              <Panel expandable="true" headerText="General Information" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                  <Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+                </content>
+              </Panel>
+              <Panel expandable="true" headerText="Acquisition Assumptions" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                  <Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+                </content>
+              </Panel>
+              <Panel expandable="true" headerText="Implementation Assumptions" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                  <Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+                </content>
+              </Panel>
+              <Panel expandable="true" headerText="Production Assumptions" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                  <Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+                </content>
+              </Panel>
+            </content>
+          </Panel>
+        </content>
       </Page>
     </pages>
   </App>
