@@ -2,7 +2,8 @@
   "name": "dmsSACTCO",
   "version": "0.0.1",
   "scripts": {
-    "start": "ui5 serve --config=uimodule/ui5.yaml  --open index.html --port $PORT",
+    "start": "node server.js",
+    "dev": "ui5 serve --config=uimodule/ui5.yaml  --open index.html --port $PORT",
     "build:ui": "run-s  build:uimodule",
     "test": "run-s lint karma",
     "karma-ci": "karma start karma-ci.conf.js",
@@ -13,18 +14,20 @@
     "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle"
   },
   "devDependencies": {
-    "shx": "^0.3.3",
     "@ui5/cli": "^2.7.1",
-    "ui5-middleware-livereload": "^0.5.1",
+    "eslint": "^7.15.0",
+    "express": "^4.17.1",
     "karma": "^5.2.3",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^2.0.3",
     "karma-ui5": "^2.3.2",
     "npm-run-all": "^4.1.5",
-    "eslint": "^7.15.0"
+    "shx": "^0.3.3",
+    "ui5-middleware-livereload": "^0.5.1"
   },
   "dependencies": {
     "@ui5/cli": "^2.7.1",
+    "express": "^4.17.1",
     "ui5-middleware-livereload": "^0.5.1"
   },
   "ui5": {
