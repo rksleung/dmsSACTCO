@@ -8,6 +8,13 @@
   <App id="idAppControl" >
     <pages>
       <Page title="{i18n>title}">
+      	<headerContent class="titleColor" >
+          <ImageContent id="titleLogo"
+            src="/resources/img/oshin-logo-new-white-2.png"
+            description="Logo"
+            press="press">
+          </ImageContent>
+  		  </headerContent>
         <content>
           <Panel headerText="{i18n>TextTCOComparison}" class="sapUiDemoFlexBoxSizeAdjustments">
             <HBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
@@ -16,9 +23,9 @@
               </VBox>
               <VBox>
                 <StepInput
-                  value="{value}"
+                  value="{TCOData>/Assumptions/TotalSeats}"
                   displayValuePrecision="{displayValuePrecision}"
-                  min="{min}"
+                  min="25"
                   max="{max}"
                   width="{width}"
                   step="{step}"
@@ -33,11 +40,62 @@
                   validationMode="{validationMode}"
                   change="onChange"/>
               </VBox>
-            </HBox>          
-            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" width="100%" vizType='stacked_column'
-              vizProperties="{general:{ groupData : false}, title:{ text: 'Revenue Outlook'}, plotArea: { window: { start: 'firstDataPoint', end: 'lastDataPoint'}, dataLabel: { formatString: 'CustomFloatFormat_F2', visible: true } } }">
+              <VBox class="sapUiSmallMarginEnd">
+                <Label text="{i18n>NumOfYear}" wrapping="true"/>
+              </VBox>
+              <VBox>
+                <StepInput
+                  value="{TCOData>/Assumptions/NumOfYear}"
+                  displayValuePrecision="{displayValuePrecision}"
+                  min="3"
+                  max="5"
+                  width="{width}"
+                  step="{step}"
+                  largerStep="{largerStep}"
+                  stepMode="{stepMode}"
+                  valueState="{valueState}"
+                  enabled="{enabled}"
+                  editable="{editable}"
+                  description="Years"
+                  fieldWidth="{fieldWidth}"
+                  textAlign="{textAlign}"
+                  validationMode="{validationMode}"
+                  change="onChange"/>
+              </VBox>
+            </HBox>
+            <FlexBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
+              <VBox class="sapUiSmallMarginEnd">
+                <Label text="{i18n>TextCost}">
+                  <layoutData>
+                    <FlexItemData order="1" />
+                  </layoutData>
+                </Label>
+              </VBox>
+              <CheckBox text="Acquisition" select="refreshValue" selected="{TCOData>/op1}">
+                <layoutData>
+                  <FlexItemData order="2" />
+                </layoutData>
+              </CheckBox>
+              <CheckBox text="Implementation" select="refreshValue" selected="{TCOData>/op2}">
+                <layoutData>
+                  <FlexItemData order="3" />
+                </layoutData>
+              </CheckBox>
+              <CheckBox text="Production" select="refreshValue" selected="{TCOData>/op3}">
+                <layoutData>
+                  <FlexItemData order="4" />
+                </layoutData>
+              </CheckBox>
+              <CheckBox text="End User" select="refreshValue" selected="{TCOData>/op4}">
+                <layoutData>
+                  <FlexItemData order="5" />
+                </layoutData>
+              </CheckBox>
+            </FlexBox>                      
+            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" width="80%" height="400px" vizType='stacked_column'
+              vizProperties="{general:{ groupData : false}, title:{ text: 'TCO Comparison'}, plotArea: { window: { start: 'firstDataPoint', end: 'lastDataPoint'}, dataLabel: { formatString: 'CustomFloatFormat_F2', visible: true, showTotal: true } }, valueAxis: {label: {formatString: 'CustomAxisFloatFormat'}, title: {visible:false}}, categoryAxis: {title: { visible: false}} }">
               <viz:dataset>
-                <viz.data:FlattenedDataset data="{TCOData>/financials}">
+                <viz.data:FlattenedDataset data="{TCOData>/calculation}">
                   <viz.data:dimensions>
                     <viz.data:DimensionDefinition name="category" value="{category}"/>
                   </viz.data:dimensions>

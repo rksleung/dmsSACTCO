@@ -1,1 +1,5 @@
 /* Enter your custom styles here */
+.sapMIBar.sapMHeader-CTX { background-color: #3b4044 }
+.sapMIBar-CTX .sapMTitle { color: #FFFFFF }
+.sapMImageContent { position: unset; object-fit: contain; align-items:center }
+.sapMImageContentImageIcon { object-fit: contain; top: 0; margin-top: 10px; width:100%; width:100% }

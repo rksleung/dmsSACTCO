@@ -12,7 +12,36 @@
 			"Acquisition": 756000,
 			"Implementation": 130000,
 			"Production": 145000,
-			"EndUser": 65000
+			"BusUser": 65000
 		}
-	]
+	],
+	"Assumptions": {
+		"OnPremLicenseCost": 1200,
+		"Discount": 10,
+		"NumOfYear": 3,
+		"WorkDayPerYear": 250,
+		"OverheadFactor": 30,
+		"AvgSalaryIT": 90000,
+		"AvgSalaryEndUser": 75000,
+		"TotalSeats": 1000,
+		"AvgITStaffInvolvedEvaluation": 4,
+		"AvgEffortPerEvaluationIT": 4,
+		"AvgBusUserInvolvedEvaluation": 8,
+		"AvgEffortPerEvalutaionBusUser": 2,
+		"AvgHardwareCost": 100, 
+		"AnnualSoftwareMaint": 20,
+		"AnnualHardwareMaint": 15,
+		"AvgLenDeployment": 90,
+		"AvgLenSACDeployment": 20,
+		"AvgBillRate": 180,
+		"TotalNumReports": 25,
+		"AvgTrainingFeesTech": 1500,
+		"AvgTrainingFeesGen": 50,
+		"PercentOfAdvancedUsers": 2,
+		"PercentOfNormalUsers": 98
+	},
+	"op1": true,
+	"op2": true,
+	"op3": true,
+	"op4": true
 }
