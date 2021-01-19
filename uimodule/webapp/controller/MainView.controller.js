@@ -128,7 +128,38 @@ sap.ui.define([
       sac.Implementation = as.AvgLenSACDeployment * as.AvgBillRate * 8;
       sac.Implementation += as.AvgTrainingFeesTech * as.PercentOfAdvancedUsers / 100 * totalSeats;
       sac.Implementation += as.AvgTrainingFeesGen * as.PercentOfNormalUsers / 100 * totalSeats / 2;
-      //onPrem.Acquisition[1] = 0;
+      
+      onPrem.ProductionPart = Array(numOfYear).fill(0);
+      onPrem.ProductionPart = onPrem.ProductionPart.map( (a, index) => {
+        let val = 0;  
+        val += as.ServerMaintenanceFTE * as.AvgSalaryIT * 1.2;
+        val += as.PercentOfReportChangesPerMonth /100 * totalSeats / 7 * 12 * as.AvgSalaryIT / as.WorkDayPerYear;
+        val += as.PercentOfSecurityRoleChangesPerMonth / 100 * totalSeats / 7 * 12 * as.AvgSalaryIT / as.WorkDayPerYear;
+        return val;
+      });
+      sac.ProductionPart = Array(numOfYear).fill(as.ProductionSubscriptionSvc * 12 * as.ProductionSubscriptionUnit);
+
+      onPrem.ProductionPart = onPrem.ProductionPart.map( (a, index) => {
+        return index == 0 ? a : a / Math.pow(1 + as.Discount/100, index);
+      });
+      sac.ProductionPart = sac.ProductionPart.map( (a, index) => {
+        return index == 0 ? a : a / Math.pow(1 + as.Discount/100, index);
+      });
+      onPrem.Production = onPrem.ProductionPart.reduce(reducer);
+      sac.Production = sac.ProductionPart.reduce(reducer);
+
+      onPrem.EndUserPart = Array(numOfYear).fill(0);
+      onPrem.EndUserPart[1] = as.AvgTrainingFeesGen * as.PercentOfNormalUsers / 100 * totalSeats / 2;
+      sac.EndUserPart = Array(numOfYear).fill(0);
+      sac.EndUserPart[1] = as.AvgTrainingFeesGen * as.PercentOfNormalUsers / 100 * totalSeats / 2;
+      onPrem.EndUserPart = onPrem.EndUserPart.map( (a, index) => {
+        return index == 0 ? a : a / Math.pow(1 + as.Discount/100, index);
+      });
+      sac.EndUserPart = sac.EndUserPart.map( (a, index) => {
+        return index == 0 ? a : a / Math.pow(1 + as.Discount/100, index);
+      });
+      onPrem.EndUser = onPrem.EndUserPart.reduce(reducer);
+      sac.EndUser = sac.EndUserPart.reduce(reducer);
     }
   });
 });

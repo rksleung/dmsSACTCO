@@ -17,7 +17,7 @@
   		  </headerContent>
         <content>
           <Panel headerText="{i18n>TextTCOComparison}" class="sapUiDemoFlexBoxSizeAdjustments">
-            <HBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
+            <FlexBox width="100%" class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
               <VBox class="sapUiSmallMarginEnd">
                 <Label text="{i18n>InputNumOfLicense}" wrapping="true"/>
               </VBox>
@@ -62,8 +62,8 @@
                   validationMode="{validationMode}"
                   change="onChange"/>
               </VBox>
-            </HBox>
-            <FlexBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
+            </FlexBox>
+            <FlexBox width="100%" class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
               <VBox class="sapUiSmallMarginEnd">
                 <Label text="{i18n>TextCost}">
                   <layoutData>
@@ -92,7 +92,7 @@
                 </layoutData>
               </CheckBox>
             </FlexBox>                      
-            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" width="80%" height="400px" vizType='stacked_column'
+            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" width="90%" height="400px" vizType='stacked_column'
               vizProperties="{general:{ groupData : false}, title:{ text: 'TCO Comparison'}, plotArea: { window: { start: 'firstDataPoint', end: 'lastDataPoint'}, dataLabel: { formatString: 'CustomFloatFormat_F2', visible: true, showTotal: true } }, valueAxis: {label: {formatString: 'CustomAxisFloatFormat'}, title: {visible:false}}, categoryAxis: {title: { visible: false}} }">
               <viz:dataset>
                 <viz.data:FlattenedDataset data="{TCOData>/calculation}">
@@ -117,22 +117,50 @@
             <content>
               <Panel expandable="true" headerText="General Information" width="auto" class="sapUiResponsiveMargin">
                 <content>
-                  <Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+                	<List>
+                    <InputListItem label="Discount Rate (%)">
+                      <Input placeholder="Price" value="10" type="Number" />
+                    </InputListItem>                  
+                    <InputListItem label="Num Of Year for Project">
+                      <Input placeholder="Price" value="3" type="Number" />
+                    </InputListItem>                  
+                    <InputListItem label="Work Day per Year">
+                      <Input placeholder="Price" value="250" type="Number" />
+                    </InputListItem>                  
+                    <InputListItem label="Average Salary for IT">
+                      <Input placeholder="Price" value="90000" type="Number" />
+                    </InputListItem>                  
+                    <InputListItem label="Average Salary for Business User">
+                      <Input placeholder="Price" value="75000" type="Number" />
+                    </InputListItem>                  
+                    <InputListItem label="Average Num of IT Staff Involved">
+                      <Input placeholder="Price" value="4" type="Number" />
+                    </InputListItem>                  
+                    <InputListItem label="Average Effort for IT Evaluation">
+                      <Input placeholder="Price" value="4" type="Number" />
+                    </InputListItem>                  
+                    <InputListItem label="Average Num of Business User Involved">
+                      <Input placeholder="Price" value="8" type="Number" />
+                    </InputListItem>                  
+                    <InputListItem label="Average Effort for Business User Evaluation">
+                      <Input placeholder="Price" value="2" type="Number" />
+                    </InputListItem>                  
+                  </List>
                 </content>
               </Panel>
               <Panel expandable="true" headerText="Acquisition Assumptions" width="auto" class="sapUiResponsiveMargin">
                 <content>
-                  <Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+                  <Text text="Acquisition costs between On-Prem BI and Cloud SAC differs. In the case of a cloud subscription model, it would include the monthly subscription fees per user. On-Prem BI include the software licensing fees and the required hardware to support the deployment. Maintenance contracts are also included in this fee because in nearly all cases they are negotiated as part of the acquisition, even though the payments are spread out over time. The acquisition costs for this scenario are based on an in-house deployment with a perpetual use license. It is assumed that all hardware required for the deployment will have to be purchased. The cost is calculated based on list pricing for software and estimated street pricing for hardware, with vendor discounting factored in, as described in the detailed assumptions." />
                 </content>
               </Panel>
               <Panel expandable="true" headerText="Implementation Assumptions" width="auto" class="sapUiResponsiveMargin">
                 <content>
-                  <Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+                  <Text text="Implementation costs include those items that allow an end user to go from acquisition of the software to a production deployment and include: installation and initial configuration, internal staff training, creation of semantic layers (models), setting up the initial access controls, initial report (story) creation, full report integration." />
                 </content>
               </Panel>
               <Panel expandable="true" headerText="Production Assumptions" width="auto" class="sapUiResponsiveMargin">
                 <content>
-                  <Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+                  <Text text="Integral to analysis of TCO is the cost to administer and maintain the BI system over the long term, particularly as changes are introduced that result from organizational or functional requirement changes. The key elements of cost during this phase are: a) costs for report changes; b) changes to security/access control; and c) server/database administration." />
                 </content>
               </Panel>
             </content>

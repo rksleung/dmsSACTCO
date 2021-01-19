@@ -8,7 +8,7 @@
 			"EndUser": 65483
 		},
 		{
-			"category": "SAC",
+			"category": "SAC with DMS",
 			"Acquisition": 756000,
 			"Implementation": 130000,
 			"Production": 145000,
@@ -36,9 +36,14 @@
 		"AvgBillRate": 180,
 		"TotalNumReports": 25,
 		"AvgTrainingFeesTech": 1500,
-		"AvgTrainingFeesGen": 50,
+		"AvgTrainingFeesGen": 80,
 		"PercentOfAdvancedUsers": 2,
-		"PercentOfNormalUsers": 98
+		"PercentOfNormalUsers": 98,
+		"ServerMaintenanceFTE": 0.25,
+		"PercentOfReportChangesPerMonth": 5,
+		"PercentOfSecurityRoleChangesPerMonth": 2,
+		"ProductionSubscriptionSvc": 2000,
+		"ProductionSubscriptionUnit": 1 
 	},
 	"op1": true,
 	"op2": true,
