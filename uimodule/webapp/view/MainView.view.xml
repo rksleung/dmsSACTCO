@@ -1,20 +1,18 @@
- <mvc:View controllerName="com.dataworksbi.dmsSACTCO.controller.MainView"
-  displayBlock="true"
+<mvc:View controllerName="com.dataworksbi.dmsSACTCO.controller.MainView" displayBlock="true"
   xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:chart="sap.suite.ui.commons"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns:viz="sap.viz.ui5.controls"
   xmlns:viz.data="sap.viz.ui5.data"
   xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
-  <App id="idAppControl" >
+  <App id="idAppControl">
     <pages>
       <Page title="{i18n>title}">
-      	<headerContent class="titleColor" >
-          <ImageContent id="titleLogo"
-            src="/resources/img/oshin-logo-new-white-2.png"
-            description="Logo"
-            press="press">
+        <headerContent class="titleColor">
+          <ImageContent id="titleLogo" src="/resources/img/oshin-logo-new-white-2.png" description="Logo" press="press">
           </ImageContent>
-  		  </headerContent>
+        </headerContent>
         <content>
           <Panel headerText="{i18n>TextTCOComparison}" class="sapUiDemoFlexBoxSizeAdjustments">
             <FlexBox width="100%" class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
@@ -22,45 +20,13 @@
                 <Label text="{i18n>InputNumOfLicense}" wrapping="true"/>
               </VBox>
               <VBox>
-                <StepInput
-                  value="{TCOData>/Assumptions/TotalSeats}"
-                  displayValuePrecision="{displayValuePrecision}"
-                  min="25"
-                  max="{max}"
-                  width="{width}"
-                  step="{step}"
-                  largerStep="{largerStep}"
-                  stepMode="{stepMode}"
-                  valueState="{valueState}"
-                  enabled="{enabled}"
-                  editable="{editable}"
-                  description="{description}"
-                  fieldWidth="{fieldWidth}"
-                  textAlign="{textAlign}"
-                  validationMode="{validationMode}"
-                  change="onChange"/>
+                <StepInput value="{TCOData>/Assumptions/TotalSeats}" displayValuePrecision="{displayValuePrecision}" min="25" max="{max}" width="{width}" step="{step}" largerStep="{largerStep}" stepMode="{stepMode}" valueState="{valueState}" enabled="{enabled}" editable="{editable}" description="{description}" fieldWidth="{fieldWidth}" textAlign="{textAlign}" validationMode="{validationMode}" change="onChange"/>
               </VBox>
               <VBox class="sapUiSmallMarginEnd">
                 <Label text="{i18n>NumOfYear}" wrapping="true"/>
               </VBox>
               <VBox>
-                <StepInput
-                  value="{TCOData>/Assumptions/NumOfYear}"
-                  displayValuePrecision="{displayValuePrecision}"
-                  min="3"
-                  max="5"
-                  width="{width}"
-                  step="{step}"
-                  largerStep="{largerStep}"
-                  stepMode="{stepMode}"
-                  valueState="{valueState}"
-                  enabled="{enabled}"
-                  editable="{editable}"
-                  description="Years"
-                  fieldWidth="{fieldWidth}"
-                  textAlign="{textAlign}"
-                  validationMode="{validationMode}"
-                  change="onChange"/>
+                <StepInput value="{TCOData>/Assumptions/NumOfYear}" displayValuePrecision="{displayValuePrecision}" min="3" max="5" width="{width}" step="{step}" largerStep="{largerStep}" stepMode="{stepMode}" valueState="{valueState}" enabled="{enabled}" editable="{editable}" description="Years" fieldWidth="{fieldWidth}" textAlign="{textAlign}" validationMode="{validationMode}" change="onChange"/>
               </VBox>
             </FlexBox>
             <FlexBox width="100%" class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
@@ -91,9 +57,8 @@
                   <FlexItemData order="5" />
                 </layoutData>
               </CheckBox>
-            </FlexBox>                      
-            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" width="90%" height="400px" vizType='stacked_column'
-              vizProperties="{general:{ groupData : false}, title:{ text: 'TCO Comparison'}, plotArea: { window: { start: 'firstDataPoint', end: 'lastDataPoint'}, dataLabel: { formatString: 'CustomFloatFormat_F2', visible: true, showTotal: true } }, valueAxis: {label: {formatString: 'CustomAxisFloatFormat'}, title: {visible:false}}, categoryAxis: {title: { visible: false}} }">
+            </FlexBox>
+            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" width="100%" height="350px" vizType='stacked_column' vizProperties="{general:{ groupData : false}, title:{ text: 'TCO Comparison'}, plotArea: { window: { start: 'firstDataPoint', end: 'lastDataPoint'}, dataLabel: { formatString: 'CustomFloatFormat_F2', visible: true, showTotal: true } }, valueAxis: {label: {formatString: 'CustomAxisFloatFormat'}, title: {visible:false}}, categoryAxis: {title: { visible: false}} }">
               <viz:dataset>
                 <viz.data:FlattenedDataset data="{TCOData>/calculation}">
                   <viz.data:dimensions>
@@ -112,39 +77,77 @@
                 <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="category"/>
               </viz:feeds>
             </viz:VizFrame>
-          </Panel>                  
+            <l:Splitter>
+              <viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}" vizType='waterfall' width="auto" vizProperties="{general:{ groupData : false}, title:{ text: 'On-Prem Recurring Cost'}, legend: { visible: false }, plotArea: { window: { start: 'firstDataPoint', end: 'lastDataPoint'}, dataLabel: { formatString: 'CustomFloatFormat_F2', visible: true, showTotal: true } }, valueAxis: {label: {formatString: 'CustomAxisFloatFormat'}, title: {visible:false}}, categoryAxis: {title: { visible: false}} }">
+                <viz:dataset>
+                  <viz.data:FlattenedDataset data="{TCOData>/waterfall1}">
+                    <viz.data:dimensions>
+                      <viz.data:DimensionDefinition name="Type" value="{Type}" />
+                      <viz.data:DimensionDefinition name="category" value="{category}"/>
+                    </viz.data:dimensions>
+                    <viz.data:measures>
+                      <viz.data:MeasureDefinition name="Amount" value="{Amount}"/>
+                    </viz.data:measures>
+                  </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <viz:feeds>
+                  <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Amount"/>
+                  <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="category"/>
+                  <viz.feeds:FeedItem uid="waterfallType" type="Dimension" values="Type"/>
+                </viz:feeds>
+              </viz:VizFrame>
+              <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}" vizType='waterfall' width="auto" vizProperties="{general:{ groupData : false}, title:{ text: 'SAC Recurring Cost'}, legend: { visible: false }, plotArea: { window: { start: 'firstDataPoint', end: 'lastDataPoint'}, dataLabel: { formatString: 'CustomFloatFormat_F2', visible: true, showTotal: true } }, valueAxis: {label: {formatString: 'CustomAxisFloatFormat'}, title: {visible:false}}, categoryAxis: {title: { visible: false}} }">
+                <viz:dataset>
+                  <viz.data:FlattenedDataset data="{TCOData>/waterfall2}">
+                    <viz.data:dimensions>
+                      <viz.data:DimensionDefinition name="Type" value="{Type}" />
+                      <viz.data:DimensionDefinition name="category" value="{category}"/>
+                    </viz.data:dimensions>
+                    <viz.data:measures>
+                      <viz.data:MeasureDefinition name="Amount" value="{Amount}"/>
+                    </viz.data:measures>
+                  </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <viz:feeds>
+                  <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Amount"/>
+                  <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="category"/>
+                  <viz.feeds:FeedItem uid="waterfallType" type="Dimension" values="Type"/>
+                </viz:feeds>
+              </viz:VizFrame>
+            </l:Splitter>
+          </Panel>
           <Panel expandable="true" headerText="Assumptions" width="auto" class="sapUiResponsiveMargin">
             <content>
               <Panel expandable="true" headerText="General Information" width="auto" class="sapUiResponsiveMargin">
                 <content>
-                	<List>
+                  <List>
                     <InputListItem label="Discount Rate (%)">
                       <Input placeholder="Price" value="10" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                     <InputListItem label="Num Of Year for Project">
                       <Input placeholder="Price" value="3" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                     <InputListItem label="Work Day per Year">
                       <Input placeholder="Price" value="250" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                     <InputListItem label="Average Salary for IT">
                       <Input placeholder="Price" value="90000" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                     <InputListItem label="Average Salary for Business User">
                       <Input placeholder="Price" value="75000" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                     <InputListItem label="Average Num of IT Staff Involved">
                       <Input placeholder="Price" value="4" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                     <InputListItem label="Average Effort for IT Evaluation">
                       <Input placeholder="Price" value="4" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                     <InputListItem label="Average Num of Business User Involved">
                       <Input placeholder="Price" value="8" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                     <InputListItem label="Average Effort for Business User Evaluation">
                       <Input placeholder="Price" value="2" type="Number" />
-                    </InputListItem>                  
+                    </InputListItem>
                   </List>
                 </content>
               </Panel>

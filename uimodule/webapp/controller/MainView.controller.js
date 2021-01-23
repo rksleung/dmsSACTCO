@@ -96,16 +96,25 @@ sap.ui.define([
       let onPrem = d.calculation[0];
       let sac = d.calculation[1];
       let as = d.Assumptions;
+      let r_onPrem = d.waterfall1;
+      let r_sac = d.waterfall2;
       onPrem.AcquisitionPart = Array(numOfYear).fill(0);
+      r_onPrem.recurring = Array(numOfYear).fill(0);
       onPrem.AcquisitionPart = onPrem.AcquisitionPart.map( (a, index) => {
-        let val = index == 0 ? avgLicenseCost * totalSeats : 0;  
+        let val = index == 0 ? avgLicenseCost * totalSeats : 0;
         val += avgLicenseCost * totalSeats * as.AnnualSoftwareMaint / 100;
         val += as.AvgHardwareCost * totalSeats * as.AnnualHardwareMaint / 100;
         val += index == 0 ? as.AvgEffortPerEvaluationIT / as.WorkDayPerYear * as.AvgITStaffInvolvedEvaluation * as.AvgSalaryIT : 0;
         val += index == 0 ? as.AvgEffortPerEvalutaionBusUser / as.WorkDayPerYear * as.AvgBusUserInvolvedEvaluation * as.AvgSalaryEndUser : 0;
         return val;
       });
+      r_onPrem.recurring = r_onPrem.recurring.map( (a, index) => {
+        let val = avgLicenseCost * totalSeats * as.AnnualSoftwareMaint / 100;
+        val += as.AvgHardwareCost * totalSeats * as.AnnualHardwareMaint / 100;
+        return val;
+      });
       sac.AcquisitionPart = Array(numOfYear).fill(avgSACCost * totalSeats);
+      r_sac.recurring = Array(numOfYear).fill(avgSACCost * totalSeats);
       sac.AcquisitionPart = sac.AcquisitionPart.map( (a, index) => {
         let val = a;
         val += index == 0 ? as.AvgEffortPerEvaluationIT / as.WorkDayPerYear * as.AvgITStaffInvolvedEvaluation * as.AvgSalaryIT : 0;
@@ -137,8 +146,28 @@ sap.ui.define([
         val += as.PercentOfSecurityRoleChangesPerMonth / 100 * totalSeats / 7 * 12 * as.AvgSalaryIT / as.WorkDayPerYear;
         return val;
       });
+      r_onPrem.recurring = r_onPrem.recurring.map( (a, index) => {
+        let val = a;  
+        val += as.ServerMaintenanceFTE * as.AvgSalaryIT * 1.2;
+        val += as.PercentOfReportChangesPerMonth /100 * totalSeats / 7 * 12 * as.AvgSalaryIT / as.WorkDayPerYear;
+        val += as.PercentOfSecurityRoleChangesPerMonth / 100 * totalSeats / 7 * 12 * as.AvgSalaryIT / as.WorkDayPerYear;
+        return val;
+      });
       sac.ProductionPart = Array(numOfYear).fill(as.ProductionSubscriptionSvc * 12 * as.ProductionSubscriptionUnit);
+      r_sac.recurring = r_sac.recurring.map( (a, index ) => {
+        return a + as.ProductionSubscriptionSvc * 12 * as.ProductionSubscriptionUnit;
+      });
 
+      const recurring_map =  (a, index) => {
+        let year_name = "Year " + (index + 1);
+        return { "category": year_name, "Amount": a, "Type": null };
+      };
+      let subtotal = r_onPrem.recurring.reduce(reducer);
+      d.waterfall1 = r_onPrem.recurring.map(recurring_map);
+      d.waterfall1.push( { "category": "Total", "Amount": subtotal, "Type": "subtotal:1"} );
+      subtotal = r_sac.recurring.reduce(reducer);
+      d.waterfall2 = r_sac.recurring.map(recurring_map);
+      d.waterfall2.push( { "category": "Total", "Amount": subtotal, "Type": "subtotal:1"} );
       onPrem.ProductionPart = onPrem.ProductionPart.map( (a, index) => {
         return index == 0 ? a : a / Math.pow(1 + as.Discount/100, index);
       });

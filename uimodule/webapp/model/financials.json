@@ -15,6 +15,50 @@
 			"BusUser": 65000
 		}
 	],
+	"waterfall1": [
+		{
+			"category": "Year 1",
+			"Amount": 995227,
+			"Type" : "null"
+		},
+		{
+			"category": "Year 2",
+			"Amount": 756000,
+			"Type" : "null"
+		},
+		{
+			"category": "Year 3",
+			"Amount": 756000,
+			"Type" : "null"
+		},
+		{
+			"category": "Total",
+			"Amount": 2300000,
+			"Type" : "subtotal:1"
+		}
+	],
+	"waterfall2": [
+		{
+			"category": "Year 1",
+			"Amount": 995227,
+			"Type" : "null"
+		},
+		{
+			"category": "Year 2",
+			"Amount": 756000,
+			"Type" : "null"
+		},
+		{
+			"category": "Year 3",
+			"Amount": 756000,
+			"Type" : "null"
+		},
+		{
+			"category": "Total",
+			"Amount": 2300000,
+			"Type" : "subtotal:1"
+		}
+	],
 	"Assumptions": {
 		"OnPremLicenseCost": 1200,
 		"Discount": 10,
